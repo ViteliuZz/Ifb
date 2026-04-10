@@ -11,7 +11,7 @@ float solve_square_equation(float a,float b,float c,float *pointx1,float *pointx
     if (a==0){
         if (b==0){return 0;}
         *pointx1=(-c)/b;
-        return 1
+        return 1;
     }
 
     // Уравнения вида x^2+1=0
@@ -52,6 +52,7 @@ float solve_square_equation(float a,float b,float c,float *pointx1,float *pointx
     else{
         return 0;
     }
+return 7; // конец функции, "7", чтобы не повлияло на if в основном коде
 }
 
 int main(){
@@ -78,5 +79,5 @@ int main(){
     }else if(korni==3){
         cout <<"Корни двойной кратности: " <<"x1 = "<<*pointx1<<" x2 = "<<*pointx2;
     }
-    return 0;
+return 0; // Здесь можно 0,так как это конец кода, не влияющий на if
 }
