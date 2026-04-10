@@ -1,0 +1,82 @@
+// Попытался добавить проверку множества вариантов ввода
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+float solve_square_equation(float a,float b,float c,float *pointx1,float *pointx2){
+    float D;
+    // Проверка на линейность, заданного уравнения
+
+    // Уравнения вида x+1=0 (например)
+    if (a==0){
+        if (b==0){return 0;}
+        *pointx1=(-c)/b;
+        return 1
+    }
+
+    // Уравнения вида x^2+1=0
+    if (b==0){
+        if (a == 0) {return 0;}
+        if ((-c / a) < 0) {return 0;} // Когда корень меньше 0, то есть нет корней
+        if ((-c / a) == 0) {
+            *pointx1 = 0;
+            *pointx2 = 0;
+            return 3;
+        }
+        *pointx1 = sqrt(-c / a);
+        *pointx2 = -sqrt(-c / a);
+    return 2;
+    }
+
+    // Уравнения вида x^2+x=0
+    if (c==0){
+        if (a==0){return 0;}
+            *pointx1=0;
+            *pointx2=(-b)/a;
+        return 2;
+    }
+
+
+    // После проверки на линейность, ищем дискрименант и корни уравнения
+    D=b*b-4*a*c;
+    if(D>0){
+        *pointx1=(-b-sqrt(D))/(2*a);
+        *pointx2=(-b+sqrt(D))/(2*a);
+        return 2;
+    }
+    else if(D==0){
+        *pointx1=(-b-sqrt(D))/(2*a);
+        *pointx2=(-b+sqrt(D))/(2*a);
+        return 3;
+    }
+    else{
+        return 0;
+    }
+}
+
+int main(){
+    setlocale(0,"Russian");
+    float a,b,c;
+    int korni;
+    float x1,x2;
+    float *pointx1=&x1; //Указатели для возможноссти подсчета корней в функции
+    float *pointx2=&x2; //Указатели для возможноссти подсчета корней в функции
+    cout<<"Введите коэффиценты уравнения со степенями x"<<'\n';
+    cout<<"Введите коэффицент уравнения a: ";
+    cin >> a;
+    cout<<"Введите коэффицент уравнения b: ";
+    cin >> b;
+    cout<<"Введите коэффицент уравнения c: ";
+    cin >> c;
+    korni=solve_square_equation(a,b,c,pointx1,pointx2);
+    if (korni==0){
+        cout << "Корней нет";
+    }else if (korni==1){
+        cout << "Корни линейного уравнения при a=0: "<<"x1 = "<<*pointx1;
+    }else if (korni==2){
+        cout <<"Корни из рациональной области: "<<"x1 = "<<*pointx1<<" x2 = "<<*pointx2;
+    }else if(korni==3){
+        cout <<"Корни двойной кратности: " <<"x1 = "<<*pointx1<<" x2 = "<<*pointx2;
+    }
+    return 0;
+}
