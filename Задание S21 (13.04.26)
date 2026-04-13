@@ -1,0 +1,33 @@
+S21 (1б) Получить от пользователя два числа А, В (В>A). Пройти циклом от А до В, вывести значение каждого числа умноженного на 3 в файл «output»
+#include <iostream>
+#include <fstream>
+using namespace std;
+int main(){
+    setlocale(0,"Russian");
+    int A,B;
+    A=0;
+    B=1;
+    ofstream MyFile("output.txt");
+    while (B>A){
+        cout <<"Должно выполнятся условие B>A"<<'\n';
+        cout <<"Введите число А: ";
+        cin >> A;
+        cout << "Введите число B: ";
+        cin >>B;
+        //Цикл записи в файле
+        for (int i=A; i<=B; i=i+1){
+            // Условие, чтобы была понятная запись в файле и break в конце, чтобы прерывался цикл
+            if(i==B){MyFile<<i*3<<". "; break;};
+            MyFile<<i*3<<",";
+        }
+    }
+    cout <<"Условие не выполнилось. Запись закончена";
+    MyFile.close();
+return 0;
+}
+
+
+
+
+
+
