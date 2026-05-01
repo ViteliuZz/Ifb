@@ -1,0 +1,77 @@
+#include <iostream>
+using namespace std;
+
+class Bucket {
+private:
+    double volume;   // общий объем ведра (л)
+    double used;     // сколько уже налито (л)
+
+public:
+
+
+    Bucket(double v){ //Конструктор
+        volume = v;
+        used = 0;
+    }
+    // Опустошить ведро
+    void flush() {
+        used = 0;
+        cout <<"Ведро опустошено"<<'\n';
+    }
+
+    double fill(double v) {
+        double Svobod;
+        Svobod=volume-used; //Считаем оставшееся объем
+        if(Svobod>=v) {
+            used=used+v;
+            cout <<"Добавлено: "<<v<<" л. Теперь в ведре: "<<used<<" л."<<'\n';
+            return 0;
+        }else{
+            used=volume;
+            double Perepoln;
+            Perepoln=v-Svobod;
+            cout << "Ведро переполнилось. Влезло только " <<Svobod<<" л. - "<<Perepoln<<" л. вылелось через край"<<'\n';
+            return Perepoln;
+        }
+    }
+
+    void show(){
+        cout <<'\n'; // Сделал отступ, чтобы было видно 1 цикл,а не сплошной текст
+        cout <<"Заполненость ведра: "<<used<<" л из "<<volume<< " л."<<'\n';
+    }
+};
+
+int main() {
+    setlocale(0, "Russian");
+    double V;
+    cout<<"Какая вместительность ведра?: ";
+    cin>>V;
+    if (V<=0) {cout<<"Отрицательный объем ведра";return 1;}
+    Bucket b(V);
+    b.show();
+    int v,k,l;
+    l=0;
+    v=1;
+    while(v!=0){
+        if (l==1){
+            cout<<"Опустошить ведро? (1 - да, 0 - нет): ";
+            cin >> k;
+            if (k==1){
+                b.flush();
+                b.show();
+            }else{
+                cout<<"Сколько налить: ";
+                cin>>v;
+                b.fill(v);
+                b.show();
+            }
+        }else{
+            cout<<"Сколько налить: ";
+            cin>>v;
+            b.fill(v);
+            b.show();
+        }
+        l=1; // Переменная, чтобы не выводилось вначале о опустошении - ведь ведро итак пустое
+    }
+    return 0;
+}
